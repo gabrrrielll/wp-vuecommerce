@@ -8,6 +8,8 @@ Author URI: https://github.com/gabrrrielll
 Version: 1.0.1
 */
 
+require_once( plugin_dir_path( __FILE__ ) . 'includes/search-route.php' );
+
 function wp_vue_admin_menu_options(){
     add_menu_page('VUE Commerce', 'VUE Commerce ', 'manage_options', 'vue-commerce-admin-menu', 'admin_menu_options_display', 'dashicons-products', 56);
 }
@@ -38,7 +40,8 @@ function wp_vue_create_custom_product( ){
         'exclude_from_search' => false,
         'has_archive' => false,
         'register_meta_box_cb' => 'register_vue_box',
-        'suports' => array( 'title', 'editor', 'thumbnail')
+        'suports' => array( 'title', 'editor', 'thumbnail'),
+        'show_in_rest' => true,
     );
 
 
@@ -140,6 +143,7 @@ add_shortcode( 'get_vueproducts', 'get_vueproducts' );
         'show_admin_column' => true,
         'query_var'         => true,
         'rewrite'           => array( 'slug' => 'product_category' ),
+        'show_in_rest' => true,
     );
  
     register_taxonomy( 'vue_product_category', array( 'vueproduct' ), $args );
@@ -175,6 +179,7 @@ add_shortcode( 'get_vueproducts', 'get_vueproducts' );
         'update_count_callback' => '_update_post_term_count',
         'query_var'             => true,
         'rewrite'               => array( 'slug' => 'product_tag' ),
+        'show_in_rest' => true,
     );
  
     register_taxonomy( 'vue_product_tag', 'vueproduct', $args );
